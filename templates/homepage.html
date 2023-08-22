@@ -1,31 +1,36 @@
-<html>
+{% extends 'base.html' %}
+{% block title %}i2food:improve the impact of food{% endblock %}
 
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/css/homepage.css">
-    <title>Ubermelon. Melons when you want them.</title>
-</head>
+{% block body %}
+  <h1>Welcome i2food!</h1>
 
-<body>
+  <h2>Navigation</h2>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About Us</a></li>
+    <li><a href="/products">Shop</a></li>
+    <li><a href="/login">Login</a></li>
+    <li><a href="/registration">Registrarion</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
 
-<div class="site-wrapper">
-    <div class="site-wrapper-inner">
+  <div id="products" class="row">
+    {% for product in product_list %}
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 product-summary mt-3">
 
-        <img src="/static/img/ubermelon-logo.png">
-
-        <h1>Ubermelon.</h1>
-
-        <p class="lead">Melons when you want them.</p>
-
-        <a href="/melons" class="btn btn-lg btn-primary">Shop Now</a>
-
+        <div class="card text-center bg-light">
+          <a href="/product/{{ product.product_id }}">
+              <img class="card-img-top img-circle" src="{{ product.image_url }}">
+          </a>
+          <div class="card-body">
+              <h5 class="card-title"><a href="/product/{{ product.product_id }}">{{ product.name }}</a></h5>
+              <div class="price card-text">{{ product.price }}</div>
+              <a class="btn btn-primary" href="/product/{{ product.product_id }}">Details</a>
+          </div>
+        </div>
     </div>
-</div>
-
-<footer>
-    <p>Copyright i2food 2021. All rights reserved.</p>
-</footer>
-
-</body>
-</html>
+    {% endfor %}
+  </div>
+ 
+ 
+{% endblock %}
