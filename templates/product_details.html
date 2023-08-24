@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}i2food:improve the impact of food{% endblock %}
+
+{% block body %}
+  <h1>Welcome i2food!</h1>
+
+  <h2>Navigation</h2>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About Us</a></li>
+    <li><a href="/products">Shop</a></li>
+    <li><a href="/login">Login</a></li>
+    <li><a href="/registration">Registrarion</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+
+  <h2 class="mt-3">{{ product.name }}</h2>
+
+    <div class="row">
+
+        <div class="col-6">
+            <img src="{{ product.image_url }}" class="img-responsive">
+        </div>
+
+        <div class="col-3">
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <h5 class="card-title">Price per product</h5>
+                    <div class="card-text">{{ product.price }}</div>
+                    <a class="btn btn-primary" href="/add_to_cart/{{ product.product_id }}">Add to cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-details">
+
+        <h3>Product details</h3>
+
+        <ul>
+            <li>Product type: {{ product.category_id }}</li>
+            <li>Description: {{ product.description }}</li>
+            <li>Stock available: {{ product.stock_qty }}</li>
+            <li>Unit of measure: {{ product.unit_measure }}</li>
+            <li>Rating: {{ product.rating }}</li>
+        </ul>
+    </div>
+ 
+{% endblock %}

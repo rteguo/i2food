@@ -1,8 +1,9 @@
 """Server for movie ratings app."""
-
+import requests
 from flask import Flask, render_template, request, flash, session, redirect
 from model import connect_to_db, db
 import crud
+import os
 
 from jinja2 import StrictUndefined
 
@@ -82,6 +83,22 @@ def register_process():
         flash("Account created suscefful !")
 
     return redirect("/")
+
+@app.route("/product/<product_id>")
+def product_details(product_id):
+    """Show the details on a particular product."""
+
+    product = crud.get_product_by_id(product_id)
+    query = product.name
+    api_key = os.environ['TICKETMASTER_KEY']
+    api_url = 'https://api.api-ninjas.com/v1/nutrition?query={}'.format(query)
+    response = requests.get(api_url, headers={'X-Api-Key': api_key})
+    if response.status_code == requests.codes.ok:
+        print(response.text)
+    else:
+        print("Error:", response.status_code, response.text)
+
+    return render_template("product_details.html", product = product, response = response)
 
 if __name__ == "__main__":
     connect_to_db(app)

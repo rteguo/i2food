@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}i2food:improve the impact of food{% endblock %}
+
+{% block body %}
+  <h1>Details product i2food!</h1>
+
+  <h2>Navigation</h2>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About Us</a></li>
+    <li><a href="/products">Shop</a></li>
+    <li><a href="/login">Login</a></li>
+    <li><a href="/registration">Registrarion</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+
+  <div id="products" class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 product-summary mt-3">
+
+        <div class="card text-center bg-light">
+          <a href="/product/{{ product.product_id }}">
+              <img class="card-img-top img-circle" src="{{ product.image_url }}">
+          </a>
+          <div class="card-body">
+              <h5 class="card-title"><a href="/product/{{ product.product_id }}">{{ product.name }}</a></h5>
+              <div class="price card-text">{{ product.price }}</div>
+              <a class="btn btn-primary" href="/product/{{ product.product_id }}">Details</a>
+              <a class="btn btn-primary" href="/product/{{ product.product_id }}">Details</a>
+          </div>
+        </div>
+    </div>
+  </div>
+ 
+ 
+{% endblock %}
