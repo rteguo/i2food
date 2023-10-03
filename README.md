@@ -8,7 +8,7 @@ The technologies used are :
 - Database : Postgre
 - Server : Flask, SQLAlchemy, Python
 - Client : HTML/CSS/Js, Bootstrap, Jinja, AJAX
-- Tools: GitHub, VSCode, draw.io, Trello, MS Project
+- Tools: GitHub, VSCode, draw.io, Trello, MS Project, Canvas, Photopea
   
 The customer journey includes several stages, including the consultation of essential information about products available for purchase. Customers can add products to their shopping cart directly from the shop page or view the details of each product. These details include a detailed description of the nutritional composition of the product, which customers can also print. Once they have completed their selection, customers can proceed to validate their order.
 The platform also includes a content management system that allows the administrator to review orders approved by customers, along with all associated details. The administrator can also access the product database, make changes to product information, and add new products.
