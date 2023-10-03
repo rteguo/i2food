@@ -1,6 +1,7 @@
 """CRUD operations."""
 
 from model import db, User, Product, Category, Profile, Order, OrderItem, connect_to_db
+from sqlalchemy import desc
 
 
 def create_user_login(email, password):
@@ -98,38 +99,48 @@ def get_products():
 
     return Product.query.all()
 
+def get_products_order_by_desc():
+    """Return all products order by create_date desc"""
+
+    return Product.query.order_by(desc(Product.create_time))
+
 def get_product_by_id(product_id):
     """Return product by primary key."""
 
     return Product.query.get(product_id)
 
 def get_product_by_name(name):
-    """Return food by name"""
+    """Return product by name"""
 
     return Product.query.filter(Product.name.ilike('%' + name + '%'))
 
-def create_order(user, order_date, total_amount):
+def get_product_last_sale(current_product):
+    """Return last sale product exclued the current product"""
+
+    return Product.query.join(OrderItem).filter(Product.product_id != current_product).order_by(desc(OrderItem.create_time)).limit(3)
+
+def create_order(user, order_date, total_amount, state):
     """Create and return order"""
 
-    order = Order(user = user, order_date = order_date, total_amount = total_amount)
+    order = Order(user = user, order_date = order_date, total_amount = total_amount, state = state)
 
     return order
 
 def get_orders():
     """Return all the orders"""
 
-    return Order.query.all()
+    return Order.query.order_by(desc(Order.create_time))
 
 def get_order_by_id(order_id):
     """Return order by primary key"""
 
     return Order.query.get(order_id)
 
-def create_order_item(order, product, quantity, subtotal):
+def create_order_item(order, product, quantity, sub_total):
     """Create and return order item."""
 
     order_item = OrderItem(order = order, product = product, 
-                           quantity = quantity, subtotal = subtotal)
+                           quantity = quantity, sub_total = sub_total)
     
     return order_item
 
@@ -142,6 +153,11 @@ def get_order_item_by_id(order_item_id):
     """Return order item by primary key"""
 
     return OrderItem.query.get(order_item_id)
+
+def get_order_items_by_order_id(order_id):
+    """Return the list of item to order"""
+
+    return OrderItem.query.filter(OrderItem.order_id == order_id)
 
 if __name__ == "__main__":
     from server import app

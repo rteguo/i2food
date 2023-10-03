@@ -1,49 +1,220 @@
 {% extends 'base.html' %}
-{% block title %}i2food:improve the impact of food{% endblock %}
+{% block title %}i2FOOD: product details{% endblock %}
 
 {% block body %}
-  <h1>Welcome i2food!</h1>
 
-  <h2>Navigation</h2>
-  <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/about">About Us</a></li>
-    <li><a href="/products">Shop</a></li>
-    <li><a href="/login">Login</a></li>
-    <li><a href="/registration">Registrarion</a></li>
-    <li><a href="/contact">Contact</a></li>
-  </ul>
-
-  <h2 class="mt-3">{{ product.name }}</h2>
-
-    <div class="row">
-
-        <div class="col-6">
-            <img src="{{ product.image_url }}" class="img-responsive">
-        </div>
-
-        <div class="col-3">
-            <div class="card text-center bg-light">
-                <div class="card-body">
-                    <h5 class="card-title">Price per product</h5>
-                    <div class="card-text">{{ product.price }}</div>
-                    <a class="btn btn-primary" href="/add_to_cart/{{ product.product_id }}">Add to cart</a>
+<section class="home-page home-img" style="background: url('../static/img/banner/page.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-content">
+                    <div class="page-text">
+                        <h4>Welcome to Our Food Store</h4>
+                        <h2>Shop</h2>
+                    </div>
+                    <div class="page-add">
+                        <ul>
+                            <li><a class="page-active" href="/">Home</a></li>
+                            <li><a href="/shop">Shop</a></li>
+                        </ul>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
+</section>
+<!-- details area -->
+<section class="details-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5 col-lg-6 col-md-6">
+                <div class="slider-for">
+                    <div class="slider-1"><img src="{{ product.image_url }}" alt="about"></div>
+                </div>
+                <div class="slider-nav">
+                    <div class="slider-2"><img src="{{ product.image_url}}" alt="about"></div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="details-info">
+                    <div class="detail-title">
+                        <h3>{{ product.name }}</h3>
+                    </div>
 
-    <div class="product-details">
+                    <div class="detail-rating">
+                        <ul>
+                            {% set rating = product.rating| int %}
+                            {% for i in range(rating) %}
+                            <li><i class="fas fa-star"></i></li>
+                            {% endfor %}
+                            
+                        </ul>
+                    </div>
+                    <div class="detail-stock">
+                        <h4>
+                            <span>Stock:</span>
+                            {% if product.stock_qty > 0 %}  
+                                <span class="product-new-label disable">in stock ({{product.stock_qty}})</span>
+                            {% else %}
+                                <span class="product-sale-label">sale</span>
+                            {% endif %}
+                        </h4>
+                    </div>
+                    <div class="product-price">
+                        <span class="money-price">${{product.price_str()}}</span>
+                        <span class="old-price">${{product.price_str()}}</span>
+                    </div>
+                    <div class="detail-description">
+                        <p>{{ product.description}}</p>
+                    </div>
+                    <div class="product-qty">
+                        <span class="qtys">Quantity:</span>
+                        <div class="counter-qty">
+                            <input type="number" id="qty" name="qty" step="1" value="1" min="1" max="{{ product.stock_qty }}">
+                            <!--span class="down" onClick='decreaseCount(event, this)'>-</span>
+                            <input type="text" id="qty" name="qty" value="1" />
+                            <span class="up" onClick='increaseCount(event, this)'>+</span-->
+                        </div>
+                    </div>
+                    <div class="pro-detail-button">
+                        <ul>
+                            <li><a href="#" class="add-to-cart" data-id="{{ product.product_id }}"><i class="fas fa-shopping-cart"></i>Add Cart</a></li>
+                            <!--li><a href="#">Buy Now</a></li-->
+                        </ul>
+                    </div>
+                    <div class="share-social">
+                        <ul>
+                            <li class="text">Share:</li>
+                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <div class="single-prd-item detai-sidebar-d-none">
+                    <div class="item-title">
+                        <h3>Last Sale</h3>
+                    </div>
+                    <div class="item-single-slider owl-carousel owl-theme">
+                        <div class="item-slidee">
+                            {% for product in product_last_sale %}
+                            <div class="item-single">
+                                <div class="item-img">
+                                    <a href="/product/{{ product.product_id }}"><img src="{{product.image_url}}" alt="{{product.name}}"></a>
+                                </div>
+                                <div class="item-text">
+                                    <a href="/product/{{ product.product_id }}">{{product.name}}</a>
 
-        <h3>Product details</h3>
+                                    <ul class="mt-stars">
 
-        <ul>
-            <li>Product type: {{ product.category_id }}</li>
-            <li>Description: {{ product.description }}</li>
-            <li>Stock available: {{ product.stock_qty }}</li>
-            <li>Unit of measure: {{ product.unit_measure }}</li>
-            <li>Rating: {{ product.rating }}</li>
-        </ul>
+                                        {% set rating = product.rating| int %}
+                                        {% for i in range(rating) %}
+                                        <li><i class="fa fa-star"></i></li>
+                                        {% endfor %}
+                                    </ul>
+                                    <div class="item-price">
+                                        <del>{{product.price_str()}}</del>
+                                        <span>${{product.price_str()}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Nutrition information from API-->
+        <div class="table-responsive tabs-table order_table">
+            <h3>Nutrition information scaled to 100g</h3>
+            <div class="button-bar pt-20 text-end">
+                <input class="btn btn-lg print-button" type="button" value="Print Information" onclick="window.print()">
+            </div> 
+            <br/>
+            <table class="table">
+                <tbody>
+                {%for key, value in response.items() %}
+                    <tr>
+                        {%if key == "name" or key == "calories" %}
+                        <td >{{key}}</td>
+                        <td >{{value}} </td>
+                        {%elif key == "sodium_mg" or key == "potassium_mg" or key == "cholesterol_mg" %}
+                        <td >{{key[:-2].replace("_"," ")}}</td>
+                        <td >{{value }}  mg</td>
+                        {%else%}
+                        <td >{{key[:-1].replace("_"," ")}}</td>
+                        <td >{{value }} g</td>
+                        {%endif%}
+                    </tr>
+                {%endfor%}
+              
+                </tbody>
+            </table>
+        </div>
+
     </div>
- 
+</section>
+
+<!-- list of product -->
+<section class="product-area section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="section-heading">
+            <h2>Featured foods</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row pt-40">
+        <div class="product-slider owl-carousel owl-theme">
+          {% for product in product_list %}
+          <div class="product-grid">
+                  <div class="product-image">
+                    <a href="/product/{{ product.product_id }}" class="image">
+                        <img src="{{ product.image_url }}" alt="food">
+                    </a>
+                    <input type="hidden" id="qty" name="qty" value="1" />
+                    {% if product.stock_qty > 0 %}  
+                      <span class="product-new-label disable">in stock({{product.stock_qty}})</span>
+                    {% else %}
+                      <span class="product-sale-label">sale</span>
+                    {% endif %}
+                    <ul class="product-links">
+                      <li>
+                        <a href="#" class="add-to-cart" data-id="{{ product.product_id }}"><i class="fas fa-shopping-bag"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-search"></i></a>
+                    </li>
+                    </ul>
+                    {% set rating = product.rating| int %}
+  
+                                         {% set rest = 5-rating| int %}
+                                         <ul class="rating">
+                                          {% for i in range(rating) %}
+                                             <li class="fas fa-star"></li>
+                                          {% endfor%}
+                                      
+                                          {% for i in range(rest) %}
+                                             <li class="fas fa-star disable"></li>
+                                             {% endfor%}
+                                         </ul>
+                  </div>
+                  <div class="product-content">
+                      <h3 class="title"><a href="/product/{{ product.product_id }}" data-bs-toggle="modal" data-bs-target="#exampleModal">{{product.name}}</a></h3>
+                      <div class="price">{{product.price_str() }} <span>{{product.price_str()}}</span></div>
+                  </div>
+              </div>
+              {% endfor %}
+              
+        </div>
+      </div>
+    </div>
+  </section>
+
+
 {% endblock %}

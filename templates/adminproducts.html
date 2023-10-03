@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block title %}i2FOOD:management of products {% endblock %}
+
+{% block body %}
+<!-- Banniere start-->
+<section class="home-page home-img" style="background: url('../static/img/banner/page.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-content">
+                    <div class="page-text">
+                        <h4>Content Management System</h4>
+                            <h2>Product</h2>
+                    </div>
+                    <div class="page-add">
+                        <ul>
+                            <li ><a class="page-active" href="/admin">CMS</a></li>
+                            <li><a href="/adminproducts">Products</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>  
+<!-- banniere-end -->
+<!-- cart-start -->
+<div id="cart" class="cart-page section-padding">
+    <div class="container">
+        <form action="#" class="search">
+            <input type="search" class="form-control" id="search-box" placeholder="name of food...">
+            <button class="fas fa-search"></button>
+        </form>
+        <div class="button-bar pt-20 text-end">
+            <a href="/addproduct"  class="btn btn-lg">Add New Product</a>
+        </div> 
+        <div class="row">
+            <h3>List of foods</h3>
+            <div class="col-lg-12">
+                <div class="table_page table-responsive ">
+                    <table id="cart-table" class="cart-tabel">
+                        <thead>
+                            <tr>
+                                <th class="product_thumb">ID</th>
+                                <th class="product_thumb">Category</th>
+                                <th class="product_thumb">Image</th>
+                                <th class="product_name">Name</th>
+                                <th class="product_thumb">Description</th>
+                                <th class="product-price">Price</th>
+                                <th class="product_quantity">Stock Qty</th>
+                                <th class="product_total">Rating</th>
+                                <th class="product_total">Create time</th>
+                                <th class="product_total">Update time</th>
+                                <th class="product_remove">Update</th>
+                                <!--th class="product_remove">Remove</th-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                            <tr>
+                                <td class="product-id">{{product.product_id}}</td>
+                                <td class="product_name">{{ product.category.name}}</td>
+                                <td class="product_thumb">
+                                    <a href="/product/{{ product.product_id }}">
+                                        <img src="{{product.image_url}}" alt="img">
+                                    </a>
+
+                                </td>
+                                <td class="product_name">
+                                    <a href="/product/{{ product.product_id }}">{{product.name}}</a>
+                                </td>
+                                <td class="product_name">{{ product.description }}</td>
+                                <td class="product-price">{{product.price_str()}}</td>
+                                <td class="product-qty product_quantity">{{product.stock_qty}}</td>
+                                <td class="product_name">{{ product.rating }}</td>
+                                <td class="product_name">{{ product.create_time }}</td>
+                                <td class="product_name">{{ product.update_time }}</td>
+                                <td class="product_remove">
+                                    <a href="/updateproduct/{{ product.product_id }}" class="edit-from-cart" data-id="{{ product.product_id }}" style="cursor: pointer;">
+                                        <i class="fa fa-edit text-danger"></i>
+                                    </a>
+                                </td>
+                                <!--td class="product_remove">
+                                    <a href="#" class="remove-from-cart" data-id="{{ product.product_id }}" style="cursor: pointer;"><i class="fa fa-trash text-danger"></i></a>
+                                </td-->
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+        
+            </div>
+        </div>
+    </div>
+</div>
+<!-- cart-end -->
+
+{% endblock %}

@@ -1,36 +1,259 @@
 {% extends 'base.html' %}
-{% block title %}i2food:improve the impact of food{% endblock %}
+{% block title %}i2FOOD:improve the impact of food{% endblock %}
 
 {% block body %}
-  <h1>Welcome i2food!</h1>
-
-  <h2>Navigation</h2>
-  <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/about">About Us</a></li>
-    <li><a href="/products">Shop</a></li>
-    <li><a href="/login">Login</a></li>
-    <li><a href="/registration">Registrarion</a></li>
-    <li><a href="/contact">Contact</a></li>
-  </ul>
-
-  <div id="products" class="row">
-    {% for product in product_list %}
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 product-summary mt-3">
-
-        <div class="card text-center bg-light">
-          <a href="/product/{{ product.product_id }}">
-              <img class="card-img-top img-circle" src="{{ product.image_url }}">
-          </a>
-          <div class="card-body">
-              <h5 class="card-title"><a href="/product/{{ product.product_id }}">{{ product.name }}</a></h5>
-              <div class="price card-text">{{ product.price }}</div>
-              <a class="btn btn-primary" href="/product/{{ product.product_id }}">Details</a>
+<!-- Banniere -->
+<section class="banner-slider-area">
+  <div class="hero-slider-full2 owl-carousel owl-theme">
+    <div class="silder-single silder-single-img"  style="background-image:url('../static/img/banner/b3.jpg')">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 col-md-12 col-sm-12">
+            <div class="slider-single-full">
+              <h4>Organic Foods for your</h4>
+              <h2>Fresh Organic Food <br><span>Vegetables</span></h2>
+              <p>Know the nutritional information of the foods.</p>
+              <div class="button-bar pt-20">
+                <a href="/shop" class="btn btn-lg btn-1">
+                  <span>Shop Now</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
     </div>
-    {% endfor %}
+    <div class="silder-single silder-single-img"  style="background-image:url('../static/img/banner/b1.jpg')">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 col-md-12 col-sm-12">
+            <div class="slider-single-full">
+              <h4>Organic food for your</h4>
+              <h2>Fresh Organic Food <br><span>Fruits</span></h2>
+              <p>find the best quality fresh fruit at the best price. </p>
+              <div class="button-bar pt-20">
+                 <a href="/shop" class="btn btn-lg btn-1">
+                          <span>Shop Now</span>
+                      </a>
+                    </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="silder-single silder-single-img"  style="background-image:url('../static/img/banner/b2.jpg')">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 col-md-12 col-sm-12">
+            <div class="slider-single-full">
+              <h4>Organic food for your</h4>
+              <h2>Fresh Organic Food <br><span>Fish / Meat</span></h2>
+              <p>find the best quality fish and meat at the best price.</p>
+              <div class="button-bar pt-20">
+                 <a href="/shop" class="btn btn-lg btn-1">
+                          <span>Shop Now</span>
+                      </a>
+                    </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</section>
+<!-- ltn-feature -->
+<div class="ltn-feature-area pt-40 pb-20">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ltn-Feature-box">
+          <ul>
+              <li class="service-content">
+                <div class="main-block">
+                  <div class="icon-block">
+                    <a href="javascript:void(0)">
+                      <i class="fas fa-shipping-fast"></i>
+                    </a>
+                  </div>
+                  <div class="service-text">
+                    <span>Free Delivary</span> 
+                    <p>Orders From All item</p>
+                  </div>
+                </div>
+              </li>
+          
+              <li class="service-content">
+                <div class="main-block">
+                  <div class="icon-block">
+                    <a href="javascript:void(0)">
+                      <i class="fas fa-hand-holding-usd"></i>
+                    </a>
+                  </div>
+                  <div class="service-text">
+                    <span>Return &amp; refund</span>
+                    <p>Money guarantee</p>
+                  </div>
+                </div>
+              </li>
+              <li class="service-content">
+                <div class="main-block">
+                  <div class="icon-block">
+                    <a href="javascript:void(0)">
+                      <i class="fas fa-headphones-alt"></i>
+                    </a>
+                  </div>
+                  <div class="service-text">
+                    <span>Quality Support</span>
+                    <p>Alway online 24/7</p>
+                     
+                  </div>
+                </div>
+              </li>
+          
+              <li class="service-content">
+                <div class="main-block">
+                  <div class="icon-block">
+                    <a href="javascript:void(0)">
+                      <i class="far fa-envelope"></i>
+                    </a>
+                  </div>
+                  {% if user_name and profile_id == 1 %}
+
+                  <div class="service-text">
+                    <a href="/admin"><span>Content Manager</span></a>
+                    <p>Manage all the back-end</p>
+                  </div>
+
+								  {% else %}
+
+                  <div class="service-text">
+                    <span>Join Newslleter</span>
+                    <p>20% off by subscribing</p>
+                  </div>
+                  {% endif %}
+                </div>
+              </li>
+              </ul>
+        </div>		
+      </div>
+    </div>
+  </div>
+</div>
+<!-- shop -->
+<div class="shop-now section-padding">
+  <div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12">
+              <div class="shop-box">
+                  <img src="../static/img/shop/shop.jpg" alt="shop">
+                  <div class="box-content">
+                      <ul class="icon">
+                          <li><a href="/shop">Shop Now</a></li> 
+                      </ul>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12">
+              <div class="shop-box">
+                  <img src="../static/img/shop/shop3.jpg" alt="shop">
+                  <div class="box-content">
+                      <ul class="icon">
+                          <li><a href="/shop">Shop Now</a></li> 
+                      </ul>
+                  </div>
+              </div>
+          </div>
+           <div class="col-lg-4 col-md-6 col-sm-12">
+              <div class="shop-box">
+                  <img src="../static/img/shop/shop1.jpg" alt="shop">
+                  <div class="box-content">
+                      <ul class="icon">
+                          <li><a href="/shop">Shop Now</a></li> 
+                      </ul>
+                  </div>
+              </div>
+          </div>
+    </div>
+  </div>
+</div>
+
+<!-- list of product -->
+<section class="product-area section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-heading">
+          <h2>Featured foods</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row pt-40">
+      <div class="product-slider owl-carousel owl-theme">
+        {% for product in product_list %}
+        <div class="product-grid">
+                <div class="product-image">
+                  <a href="/product/{{ product.product_id }}" class="image">
+                      <img src="{{ product.image_url }}" alt="food">
+                  </a>
+                  <input type="hidden" id="qty" name="qty" value="1" />
+                  {% if product.stock_qty > 0 %}  
+                    <span class="product-new-label disable">in stock({{product.stock_qty}})</span>
+                  {% else %}
+                    <span class="product-sale-label">sale</span>
+                  {% endif %}
+                  <ul class="product-links">
+                    <li>
+                      <a href="#" class="add-to-cart" data-id="{{ product.product_id }}"><i class="fas fa-shopping-bag"></i></a>
+                  </li>
+                  <li>
+                      <a href="#"><i class="fa fa-search"></i></a>
+                  </li>
+                  </ul>
+                  {% set rating = product.rating| int %}
+
+                                       {% set rest = 5-rating| int %}
+                                       <ul class="rating">
+                                        {% for i in range(rating) %}
+                                           <li class="fas fa-star"></li>
+                                        {% endfor%}
+                                    
+                                        {% for i in range(rest) %}
+                                           <li class="fas fa-star disable"></li>
+                                           {% endfor%}
+                                       </ul>
+                </div>
+                <div class="product-content">
+                    <h3 class="title"><a href="/product/{{ product.product_id }}" data-bs-toggle="modal" data-bs-target="#exampleModal">{{product.name}}</a></h3>
+                    <div class="price">{{ product.price_str() }} <span>{{product.price_str()}}</span></div>
+                </div>
+            </div>
+            {% endfor %}
+            
+      </div>
+    </div>
+  </div>
+</section>
+
+ <!-- newsletters -->
+ <section class="Newsletter-area"  style="background-image:url('../static/img/blog/news.jpg')">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6">
+        <div class="subcribe-content">
+          <h3>Stay informed </h3>
+          <p>Eating a balanced diet every day should give you all the nutrients you need to maintain good health. 
+            Receive daily information from expert nutritionists and our best food offers.</p>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 align-self-center">
+        <div class="subscribe">
+          <input type="search" placeholder="Enter Email">
+          <input type="submit" value="subscribe">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
  
  
 {% endblock %}

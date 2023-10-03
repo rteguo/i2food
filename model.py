@@ -22,6 +22,8 @@ class Profile(db.Model):
     users = db.relationship("User", back_populates = "profile")
 
     def __repr__(self):
+        """Convenience method to show information about oject in console."""
+
         return f"Profile <profile_id={self.profile_id}> <name = {self.name}>"
 
 
@@ -50,6 +52,8 @@ class User(db.Model):
     orders = db.relationship("Order", back_populates = "user")
 
     def __repr__(self):
+        """Convenience method to show information about oject in console."""
+
         return f"<User user_id={self.user_id} email={self.email}>"
 
 
@@ -69,6 +73,8 @@ class Category(db.Model):
     products = db.relationship("Product", back_populates = "category")
 
     def __repr__(self):
+        """Convenience method to show information about oject in console."""
+
         return f"Category <category_id={self.category_id}> <name = {self.name}>"
 
 
@@ -95,7 +101,14 @@ class Product(db.Model):
     order_items = db.relationship("OrderItem", back_populates = "product")
 
     def __repr__(self):
+        """Convenience method to show information about oject in console."""
+
         return f"Product <product_id = {self.product_id} name = {self.name}"
+    
+    def price_str(self):
+        "Return price formatted as string $x.xx"
+
+        return f"${self.price:.2f}"
 
 class Order(db.Model):
     """A order of customer."""
@@ -106,6 +119,7 @@ class Order(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable = False)
     order_date = db.Column(db.DateTime)
     total_amount = db.Column(db.Float)
+    state = db.Column(db.String)
     status = db.Column(db.Integer, default = 1)
     create_time = db.Column(db.DateTime, default=now)
     update_time = db.Column(db.DateTime, default=now, onupdate=now)
@@ -115,7 +129,18 @@ class Order(db.Model):
     order_items = db.relationship("OrderItem", back_populates = "order")
 
     def __repr__(self):
+        """Convenience method to show information about oject in console."""
         return f"Order <order_id = {self.order_id} user_id = {self.user_id}> "
+    
+    def total_amount_str(self):
+        "Return total amount formatted as string $x.xx"
+
+        return f"${self.total_amount:.2f}"
+    
+    def order_date_str(self):
+        "Return order date formated"
+
+        return self.order_date.isoformat(timespec='minutes')
     
 class OrderItem(db.Model):
     """A order items."""
@@ -125,7 +150,7 @@ class OrderItem(db.Model):
     order_item_id = db.Column(db.Integer, autoincrement = True, primary_key = True )
     order_id = db.Column(db.Integer, db.ForeignKey("orders.order_id"), nullable = False)
     product_id = db.Column(db.Integer, db.ForeignKey("products.product_id"))
-    quantity = db.Column(db.DateTime)
+    quantity = db.Column(db.Integer)
     sub_total = db.Column(db.Float)
     status = db.Column(db.Integer, default = 1)
     create_time = db.Column(db.DateTime, default=now)
@@ -136,8 +161,14 @@ class OrderItem(db.Model):
     product = db.relationship("Product", back_populates = "order_items")
 
     def __repr__(self):
-        return f"Order <order_id = {self.order_id} user_id = {self.user_id}> "
+        """Convenience method to show information about oject in console."""
+        
+        return f"Order <order_item_id = {self.order_item_id} order_id = {self.order_id}> "
 
+    def sub_total_str(self):
+        "Return total amount formatted as string $x.xx"
+
+        return f"${self.sub_total:.2f}"
 
 def connect_to_db(flask_app, db_uri="postgresql:///i2food", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri

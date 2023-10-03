@@ -1,35 +1,238 @@
 {% extends 'base.html' %}
-{% block title %}i2food:improve the impact of food{% endblock %}
+{% block title %}i2food:shop grid{% endblock %}
 
 {% block body %}
-  <h1>Details product i2food!</h1>
 
-  <h2>Navigation</h2>
-  <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/about">About Us</a></li>
-    <li><a href="/products">Shop</a></li>
-    <li><a href="/login">Login</a></li>
-    <li><a href="/registration">Registrarion</a></li>
-    <li><a href="/contact">Contact</a></li>
-  </ul>
-
-  <div id="products" class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 product-summary mt-3">
-
-        <div class="card text-center bg-light">
-          <a href="/product/{{ product.product_id }}">
-              <img class="card-img-top img-circle" src="{{ product.image_url }}">
-          </a>
-          <div class="card-body">
-              <h5 class="card-title"><a href="/product/{{ product.product_id }}">{{ product.name }}</a></h5>
-              <div class="price card-text">{{ product.price }}</div>
-              <a class="btn btn-primary" href="/product/{{ product.product_id }}">Details</a>
-              <a class="btn btn-primary" href="/product/{{ product.product_id }}">Details</a>
-          </div>
+<section class="home-page home-img" style="background: url('../static/img/banner/page.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-content">
+                    <div class="page-text">
+                        <h4>Welcome to Our Food Shop</h4>
+                        <h2>Shop</h2>
+                    </div>
+                    <div class="page-add">
+                        <ul>
+                            <li><a class="page-active" href="/">Home</a></li>
+                            <li><a href="/shop">Shop</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-  </div>
- 
- 
+</section>
+<!-- shop block -->
+<section class="shop-page section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 order-lg-1 order-1 pt-50 align-self-center">
+                <div class="blog-widget">
+                    <div class="content-heading">
+                        <h3>Categories</h3>
+                    </div>
+                    <!-- list of category-->
+                    <div class="content-details">
+                        {% for category in category_list %}
+                        <div class="content-list widget-list">
+                            <span class="text"><a href="#">{{category.name}}</a></span>
+                            <span class="value">(4)</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+
+                <div class="blog-widget">
+                    <div class="content-heading">
+                        <h3>Filter by price</h3>
+                    </div>
+                    <div class="container-range">
+                        <form class="range">
+                            <div class="form-group range__value">
+                                <h5>Amount:</h5>
+                                <span></span>
+                            </div>
+                            <div class="form-group range__slider">
+                                <input type="range" step="5">
+                            </div>
+                            <!--/form-group-->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 order-lg-2">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="ltn__shop-options">
+                            <div class="list-single">
+                                <div class="ltn__grid-list-tab-menu ">
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="gridView-tab" data-bs-toggle="tab"
+                                                data-bs-target="#gridView" role="tab" aria-controls="gridView"
+                                                aria-selected="false"><i class="fas fa-th"></i></button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="listView-tab" data-bs-toggle="tab"
+                                                data-bs-target="#listView" role="tab" aria-controls="listView"
+                                                aria-selected="true"><i class="fas fa-list-ul"></i></button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="list-single">
+                                <div class="showing-product-number text-right">
+                                    <span>Showing results</span>
+                                </div>
+                            </div>
+                            <div class="list-single">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Relevance
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="#">Name(A-Z)</a></li>
+                                        <li><a class="dropdown-item" href="#">Name(Z-A)</a></li>
+                                        <li><a class="dropdown-item" href="#">Pricing High</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-40">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade shop-gridview active show" id="gridView" role="tabpanel"
+                            aria-labelledby="gridView-tab">
+                            <!-- Grid view-->
+                            <div class="row">
+                                <!-- Single -->
+                                {% for product in product_list %}
+                                <div class="col-lg-4 col-sm-6 mb-30">
+                                    <div class="product-grid">
+                                        <div class="product-image">
+                                            <a href="/product/{{ product.product_id }}" class="image">
+                                                <img src="{{ product.image_url }}" alt="product">
+                                            </a>
+                                            <input type="hidden" id="qty" name="qty" value="1" />
+                                            {% if product.stock_qty > 0 %}
+                                            <span class="product-new-label disable">In stock({{ product.stock_qty }})</span>
+                                            {% else %}
+                                            <span class="product-sale-label">Sale</span>
+                                            {% endif %}
+                                            <ul class="product-links">
+                                                <li>
+                                                    <a href="#" class="add-to-cart"
+                                                        data-id="{{ product.product_id }}"><i
+                                                            class="fas fa-shopping-bag"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-search"></i></a>
+                                                </li>
+                                            </ul>
+                                            {% set rating = product.rating| int %}
+
+                                            {% set rest = 5-rating| int %}
+                                            <ul class="rating">
+                                                {% for i in range(rating) %}
+                                                <li class="fas fa-star"></li>
+                                                {% endfor%}
+                                                <!--li class="fas fa-star"></li>
+                                           <li class="fas fa-star"></li>
+                                           <li class="fas fa-star"></li-->
+                                                {% for i in range(rest) %}
+                                                <li class="fas fa-star disable"></li>
+                                                {% endfor%}
+                                            </ul>
+                                        </div>
+                                        <div class="product-content">
+                                            <h3 class="title"><a href="/product/{{ product.product_id }}">{{
+                                                    product.name }}</a></h3>
+                                            <div class="price">{{ product.price}} <span>{{product.price }}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                        <!-- Shop ListView -->
+                        <div class="tab-pane fade shop-listview" id="listView" role="tabpanel"
+                            aria-labelledby="listView-tab">
+                            <div class="row">
+                                <!-- Single -->
+                                <div class="col-lg-12">
+                                    {% for product in product_list %}
+                                    <div class="product-grid product-grid-view">
+                                        <div class="product-image">
+                                            <a href="/product/{{ product.product_id }}" class="image">
+                                                <img src="{{ product.image_url }}" alt="product">
+                                            </a>
+                                            <input type="hidden" id="qty" name="qty" value="1" />
+                                            {% if product.stock_qty > 0 %}
+                                            <span class="product-new-label disable">In stock({{ product.stock_qty }})</span>
+                                            {% else %}
+                                            <span class="product-sale-label">Sale</span>
+                                            {% endif %}
+
+                                            <ul class="product-links">
+                                                <li>
+                                                    <a href="#" class="add-to-cart"
+                                                        data-id="{{ product.product_id }}"><i
+                                                            class="fas fa-shopping-bag"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fa fa-search"></i></a>
+                                                </li>
+                                            </ul>
+                                            {% set rating = product.rating| int %}
+
+                                            {% set rest = 5-rating| int %}
+                                            <ul class="rating">
+                                                {% for i in range(rating) %}
+                                                <li class="fas fa-star"></li>
+                                                {% endfor%}
+                                                <!--li class="fas fa-star"></li>
+                                       <li class="fas fa-star"></li>
+                                       <li class="fas fa-star"></li-->
+                                                {% for i in range(rest) %}
+                                                <li class="fas fa-star disable"></li>
+                                                {% endfor%}
+                                            </ul>
+                                        </div>
+                                        <div class="product-content">
+                                            <h3 class="title"><a href="/product/{{ product.product_id }}">{{
+                                                    product.name }}</a></h3>
+                                            <div class="price">{{ product.price }} <span>{{ product.price }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor%}
+                                </div>
+                                <div class="col-12">
+                                    <!--div class="wt-pagintion">
+                                       <ul>
+                                           <li><a href="#"><i class="fas fa-chevron-left"></i></a></li>
+                                           <li><a href="#">1</a></li>
+                                           <li><a class="active" href="#">2</a></li>
+                                           <li><a href="#">3</a></li>
+                                           <li><a href="#">4</a></li>
+                                           <li><a href="#">...</a></li>
+                                           <li><a href="#"><i class="fas fa-chevron-right"></i></a></li>
+                                       </ul>
+                                   </div-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 {% endblock %}
