@@ -1,6 +1,6 @@
 """CRUD operations."""
 
-from model import db, User, Product, Category, Profile, Order, OrderItem, connect_to_db
+from model import db, User, Product, Category, Profile, Order, OrderItem, Contact, connect_to_db
 from sqlalchemy import desc
 
 
@@ -158,6 +158,23 @@ def get_order_items_by_order_id(order_id):
     """Return the list of item to order"""
 
     return OrderItem.query.filter(OrderItem.order_id == order_id)
+
+def create_contact(name, email, message):
+    """Create and return contact message."""
+
+    contact = Contact(name = name, email = email, message = message)
+    
+    return contact
+
+def get_contacts():
+    """Return all the contact's message."""
+
+    return Contact.query.all()
+
+def get_order_item_by_id(contact_id):
+    """Return contact message by primary key"""
+
+    return Contact.query.get(contact_id)
 
 if __name__ == "__main__":
     from server import app

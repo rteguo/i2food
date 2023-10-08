@@ -51,6 +51,21 @@
 
 
 		//Manage add to cart
+
+		// Function to update the cart size
+        function updateCartSize() {
+            $.ajax({
+                url: '/cart_size',
+                method: 'GET',
+                success: function(data) {
+                    $('#cart-size').text(data.cart_size);
+                }
+            });
+        }
+
+        // Update the cart size initially
+        updateCartSize();
+		
 		 // AJAX to add an item to the cart
 		 document.querySelectorAll('.add-to-cart').forEach(function(button) {
 			button.addEventListener('click', function() {
@@ -63,9 +78,14 @@
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 				})
 				.then(response => response.json())
-				.then(data => alert(data.message))
+				.then(data => {
+					alert(data.message);
+					// Update the cart size after add item
+					updateCartSize();
+				})
 				.catch(error => console.error('Error:', error));
 			});
+
 		});
 
 		//Ajax to remove item in the cart
@@ -88,7 +108,7 @@
 			});
 		});
 
-		// Submit order
+		// Ajax to submit order by customer
 		document.querySelectorAll('.submit-order').forEach(function(button) {
 			button.addEventListener('click', function() {
 				var orderTotal = document.getElementById("order_total").value;
@@ -170,6 +190,69 @@
 				}
 			});
 		});
+
+		// User Login 
+		$("#login-user").submit(function(event) {
+			event.preventDefault();
+
+			// Prepare form data for Ajax
+			var formData = new FormData(this);
+
+			// Send a POST request to the server
+			$.ajax({
+				type: 'POST',
+				url: '/loginprocess',
+				data: formData,
+				contentType: false,
+				processData: false,
+				success: function(response) {
+					// Set and display the message from server
+					$("#message").html(response.message);
+					//alert(response.message);
+
+					//Reload the homepage after successful login
+					if (response.message == "Login successfully."){
+						window.location.href = '/';
+					}
+					//
+				},
+				error: function(error) {
+					$("#message").html("Error user log in.");
+				}
+			});
+		});
+
+		// Create new user form
+		$("#add-user").submit(function(event) {
+			event.preventDefault();
+
+			// Prepare form data for Ajax
+			var formData = new FormData(this);
+
+			// Send a POST request to the server
+			$.ajax({
+				type: 'POST',
+				url: '/userprocess',
+				data: formData,
+				contentType: false,
+				processData: false,
+				success: function(response) {
+					// Set and display the message from server
+					$("#message").html(response.message);
+					//alert(response.message);
+
+					//Reload the homepage after successful login
+					if (response.message == "User crate successfully."){
+						window.location.href = '/adminusers';
+					}
+					//
+				},
+				error: function(error) {
+					$("#message").html("Error user log in.");
+				}
+			});
+		});
+
 	
 		
     //     window.onscroll = () =>{

@@ -82,10 +82,11 @@ def login_process():
     password = request.form.get("password")
     user = crud.get_user_by_email(email)
 
+    if not email or not password :
+        return jsonify({"message" : "Please complete all required fields."})
+    
     if not user or user.password != password:
-        flash("Email or password incorrect.")
-
-        return redirect("/login")
+        return jsonify({"message" : "Email or password incorrect."})
     
     else:
        
@@ -96,7 +97,7 @@ def login_process():
 
         #flash(f"Welcome, {user.first_name}")
 
-        return redirect("/")
+        return jsonify({"message" : "Login successfully."})
     
 
 @app.route("/registration")
@@ -208,6 +209,13 @@ def logout():
 
     return redirect("/")
 
+
+@app.route('/cart_size', methods=['GET'])
+def get_cart_size():
+    """Return the current cart size as JSON"""
+    cart = session.get('cart', {})
+    cart_size = len(cart)
+    return jsonify(cart_size=cart_size)
 
 @app.route("/cart")
 def view_cart():
@@ -470,9 +478,9 @@ def update_product():
     name = request.form.get("name")
     category_id = int(request.form.get("category_id"))
     description = request.form.get("description")
-    price = request.form.get("price")
-    rating = request.form.get("rating")
-    stock_qty = request.form.get("stock_qty")
+    price = float(request.form.get("price"))
+    rating = int(request.form.get("rating"))
+    stock_qty = int(request.form.get("stock_qty"))
     unit_measure = request.form.get("unit_measure")
     image = request.files["image_url"]
 
@@ -544,6 +552,58 @@ def admin_user():
     
     return render_template("adminusers.html", users=users, user_name = user_name)
 
+@app.route("/adduser")
+def adduser():
+    """Form to add new user"""
+
+    # Check if login user and if he is an administrator
+    user_name = None
+
+    if "first_name" in session:
+        user_name =  session["first_name"]
+        # Check if user connected is administrator
+        if session["profile_id"] != 1 :
+            return redirect("/")
+    else:
+        return redirect("/")
+
+    # Get list of categories
+    profiles = crud.get_profiles()
+    
+    return render_template("adduser.html", profiles=profiles, user_name = user_name)
+
+@app.route("/userprocess", methods=["POST"])
+def register_user():
+    """Register a new user"""
+
+    last_name = request.form.get("last_name")
+    first_name = request.form.get("first_name")
+    email = request.form.get("email")
+    password = request.form.get("password")
+    sex = request.form.get("sex")
+    title = request.form.get("title")
+    address = request.form.get("address")
+    phone = request.form.get("phone")
+    activity = request.form.get("activity")
+    profile_id = request.form.get("profile_id")
+
+    user = crud.get_user_by_email(email)
+
+    # Check by email if user already exist
+    if user:
+         return jsonify({"message" : "User already exist."})
+
+    # If user does'nt exist, create user
+    else:
+        profile = crud.get_profile_by_id(profile_id)
+        user = crud.create_user(profile, email, password, last_name, first_name, 
+                    address, phone, activity, title, sex)
+        
+        db.session.add(user)
+        db.session.commit()
+        # flash("Account created suscefful !")
+
+    return jsonify({"message" : "User crate successfully."})
 
 if __name__ == "__main__":
     connect_to_db(app)

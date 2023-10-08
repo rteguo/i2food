@@ -2729,9 +2729,17 @@ p{
 .table-responsive table tbody tr td {
     font-weight: 501;
     text-transform: capitalize;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #c1b7b7;
     color: #404040;
+}
+
+.table-data-api table tbody tr td {
+  font-weight: 501;
+  text-transform: capitalize;
+  text-align: left;
+  border-bottom: 1px solid #c1b7b7;
+  color: #404040;
 }
 
 .product_name a {

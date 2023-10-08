@@ -2,7 +2,7 @@
 {% block title %}i2food:login {% endblock %}
 
 {% block body %}
-  
+
 <section class="home-page home-img" style="background: url('../static/img/banner/page.jpg');">
     <div class="container">
         <div class="row">
@@ -10,11 +10,11 @@
                 <div class="page-content">
                     <div class="page-text">
                         <h4>Welcome to Our Food Shop</h4>
-                            <h2>Login</h2>
+                        <h2>Login</h2>
                     </div>
                     <div class="page-add">
                         <ul>
-                            <li ><a class="page-active" href="/">Home</a></li>
+                            <li><a class="page-active" href="/">Home</a></li>
                             <li><a href="/login">Login</a></li>
                         </ul>
                     </div>
@@ -22,30 +22,32 @@
             </div>
         </div>
     </div>
-</section>  
-  <section class="register-page section-padding">
+</section>
+<section class="register-page section-padding">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
-                 <div class="login-form-2">
-                   <div class="form-container">
-                       <div class="form-icon"><i class="fa fa-user"></i></div>
-                       <h3 class="title">Login</h3>
-                       <form class="form-horizontal" action="/loginprocess" method="POST">
-                           <div class="form-group">
-                               <label>Email</label>
-                               <input name="email" class="form-control" type="email" placeholder="Email" required>
-                           </div>
-                           <div class="form-group">
-                               <label>password</label>
-                               <input name="password" class="form-control" type="password" placeholder="password" required>
-                           </div>
-                           <button type="submit" class="btn btn-default">Login</button>
-                           <p><br><br>If you don't have an account, <a href="/registration">Sing Up</a></p>
-                       </form>
+                <div class="login-form-2">
+                    <div id="message"></div>
+                    <div class="form-container">
+                        <div class="form-icon"><i class="fa fa-user"></i></div>
+                        <h3 class="title">Login</h3>
+                        <form class="form-horizontal" id="login-user" method="POST">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input name="email" class="form-control" type="email" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>password</label>
+                                <input name="password" class="form-control" type="password" placeholder="password"
+                                    required>
+                            </div>
+                            <input  type="submit" class="login-user btn btn-default" value="Login">
+                            <p><br><br>If you don't have an account, <a href="/registration">Sing Up</a></p>
+                        </form>
 
-                   </div>
-               </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

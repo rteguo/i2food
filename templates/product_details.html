@@ -43,6 +43,7 @@
                     </div>
 
                     <div class="detail-rating">
+                        Rating / 5
                         <ul>
                             {% set rating = product.rating| int %}
                             {% for i in range(rating) %}
@@ -129,8 +130,8 @@
             </div>
         </div>
         <!-- Nutrition information from API-->
-        <div class="table-responsive tabs-table order_table">
-            <h3>Nutrition information scaled to 100g</h3>
+        <div class="table-data-api tabs-table order_table">
+            <h3>Nutrition information scaled to 100 grams (G)</h3>
             <div class="button-bar pt-20 text-end">
                 <input class="btn btn-lg print-button" type="button" value="Print Information" onclick="window.print()">
             </div> 

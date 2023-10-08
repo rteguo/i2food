@@ -169,6 +169,25 @@ class OrderItem(db.Model):
         "Return total amount formatted as string $x.xx"
 
         return f"${self.sub_total:.2f}"
+    
+class Contact(db.Model):
+    """A contact message."""
+
+    __tablename__ = "contacts"
+
+    contact_id = db.Column(db.Integer, autoincrement = True, primary_key = True )
+    name = db.Column(db.String, nullable = False)
+    email = db.Column(db.String, nullable = False)
+    message = db.Column(db.Text, nullable = False)
+    status = db.Column(db.Integer, default = 1)
+    create_time = db.Column(db.DateTime, default=now)
+    update_time = db.Column(db.DateTime, default=now, onupdate=now)
+
+    def __repr__(self):
+        """Convenience method to show information about oject in console."""
+        
+        return f"Contact <contact_id = {self.contact_id} name = {self.name}> "
+
 
 def connect_to_db(flask_app, db_uri="postgresql:///i2food", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
