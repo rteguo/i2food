@@ -34,10 +34,10 @@
                     </div>
                     <!-- list of category-->
                     <div class="content-details">
-                        {% for category in category_list %}
+                        {% for name, size in category_list.items() %}
                         <div class="content-list widget-list">
-                            <span class="text"><a href="#">{{category.name}}</a></span>
-                            <span class="value">(4)</span>
+                            <span class="text"><a href="#">{{name}}</a></span>
+                            <span class="value">({{size}})</span>
                         </div>
                         {% endfor %}
                     </div>
@@ -152,7 +152,7 @@
                                         <div class="product-content">
                                             <h3 class="title"><a href="/product/{{ product.product_id }}">{{
                                                     product.name }}</a></h3>
-                                            <div class="price">{{ product.price}} <span>{{product.price }}</span></div>
+                                            <div class="price">{{ product.price_str()}} </div>
                                         </div>
                                     </div>
                                 </div>
@@ -207,7 +207,7 @@
                                         <div class="product-content">
                                             <h3 class="title"><a href="/product/{{ product.product_id }}">{{
                                                     product.name }}</a></h3>
-                                            <div class="price">{{ product.price }} <span>{{ product.price }}</span>
+                                            <div class="price">{{ product.price_str() }} 
                                             </div>
                                         </div>
                                     </div>

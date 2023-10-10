@@ -63,8 +63,7 @@
                         </h4>
                     </div>
                     <div class="product-price">
-                        <span class="money-price">${{product.price_str()}}</span>
-                        <span class="old-price">${{product.price_str()}}</span>
+                        <span class="money-price">{{product.price_str()}}</span><span> / {{product.unit_measure}}</span>
                     </div>
                     <div class="detail-description">
                         <p>{{ product.description}}</p>
@@ -116,7 +115,7 @@
                                         {% endfor %}
                                     </ul>
                                     <div class="item-price">
-                                        <del>{{product.price_str()}}</del>
+                                       
                                         <span>${{product.price_str()}}</span>
                                     </div>
                                 </div>
@@ -207,7 +206,7 @@
                   </div>
                   <div class="product-content">
                       <h3 class="title"><a href="/product/{{ product.product_id }}" data-bs-toggle="modal" data-bs-target="#exampleModal">{{product.name}}</a></h3>
-                      <div class="price">{{product.price_str() }} <span>{{product.price_str()}}</span></div>
+                      <div class="price">{{product.price_str() }} </div>
                   </div>
               </div>
               {% endfor %}

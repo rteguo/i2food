@@ -186,14 +186,20 @@ def shoppage():
     """View shop page."""
 
     products = crud.get_products()
-    category = crud.get_categories()
+    categories = crud.get_categories()
+
+    # Build dictionnary for the list of categories with number of products for each category
+    dict_categories = {}
+
+    for category in categories:
+        dict_categories[category.name] = len(category.products)
 
     user_name = None
 
     if "first_name" in session:
         user_name =  session["first_name"]
 
-    return render_template("shop.html", product_list=products, category_list=category, user_name = user_name)
+    return render_template("shop.html", product_list=products, category_list=dict_categories, user_name = user_name)
 
 
 @app.route("/logout")
@@ -213,6 +219,7 @@ def logout():
 @app.route('/cart_size', methods=['GET'])
 def get_cart_size():
     """Return the current cart size as JSON"""
+
     cart = session.get('cart', {})
     cart_size = len(cart)
     return jsonify(cart_size=cart_size)
@@ -604,6 +611,27 @@ def register_user():
         # flash("Account created suscefful !")
 
     return jsonify({"message" : "User crate successfully."})
+
+@app.route("/contactprocess", methods=["POST"])
+def contact_message():
+    """Register a new user"""
+
+    name = request.form.get("name")
+    message = request.form.get("message")
+    email = request.form.get("email")
+   
+    # Check if all required fields are complete
+    if not name or not email:
+        return jsonify({"message" : "Please complete all required fields"})
+
+    else:
+        contact = crud.create_contact(name, email, message)
+        
+        db.session.add(contact)
+        db.session.commit()
+        # flash("Account created suscefful !")
+
+    return jsonify({"message" : "Conctact message create successfully."})
 
 if __name__ == "__main__":
     connect_to_db(app)
