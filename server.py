@@ -96,7 +96,8 @@ def login_process():
         session["first_name"] = user.first_name
 
         #flash(f"Welcome, {user.first_name}")
-
+        if "cart" in session:
+            return jsonify({"message" : "Login successfully and back to cart."})
         return jsonify({"message" : "Login successfully."})
     
 

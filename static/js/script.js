@@ -79,7 +79,7 @@
 				})
 				.then(response => response.json())
 				.then(data => {
-					alert(data.message);
+					//alert(data.message);
 					// Update the cart size after add item
 					updateCartSize();
 				})
@@ -214,7 +214,11 @@
 					if (response.message == "Login successfully."){
 						window.location.href = '/';
 					}
-					//
+					else if (response.message == "Login successfully and back to cart."){
+						window.location.href = '/cart';
+					}
+						//Reload the shopping cart after successful login if custumer added items
+					
 				},
 				error: function(error) {
 					$("#message").html("Error user log in.");
