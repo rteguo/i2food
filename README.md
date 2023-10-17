@@ -1,4 +1,4 @@
-![alt text](https://github.com/rteguo/i2food/blob/main/static/img/i2food.png
+# <img src="https://github.com/rteguo/i2food/blob/main/static/img/i2food.png">
 # i2food : improve the impact of food
 
 ## Summary
@@ -17,7 +17,8 @@ My application is built on a 3-layers architecture:
 - Back End layer : Flask, SQLAlchemy, Python
 - Front End layer : HTML/CSS/Js, Bootstrap, Jinja, AJAX, JQuery
 - API: [Ninja API](https://api-ninjas.com/api/nutrition)
-![alt text](https://github.com/rteguo/i2food/blob/main/static/img/architecture-i2food-m.png
+
+![Architecture of my app](https://github.com/rteguo/i2food/blob/main/static/img/architecture-i2food-m.png)
 
 ## Features
 
@@ -27,12 +28,13 @@ My application is built on a 3-layers architecture:
 - Display the products with rating relating their nutrient composition
 - Add product in the cart
 - Remove product in the cart
-- Consult the details of product which include nutritional information 
+- Display the details of product which include nutritional information 
 - Print the information about the nutrient composition of product 
+- Display recently sold products
 - Submit the order
 - Send the message with contact form
 
-**Back End features:**
+**Back End features (for administrator profile):**
 - Consult the List of orders 
 - Cosult the details of each order
 - Consult the list of products
@@ -43,3 +45,5 @@ My application is built on a 3-layers architecture:
 - Get the last sale products
 
 ## Screenshots
+
+![Home page i2food](https://github.com/rteguo/i2food/blob/main/static/img/home-page.png)
