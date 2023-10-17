@@ -25,9 +25,11 @@ My application is built on a 3-layers architecture:
 **Front End features:**
 - User registration
 - User login
+- User Log out
 - Display the products with rating relating their nutrient composition
 - Add product in the cart
 - Remove product in the cart
+- Display the number of products in the shopping cart in real time
 - Display the details of product which include nutritional information 
 - Print the information about the nutrient composition of product 
 - Display recently sold products
@@ -38,10 +40,11 @@ My application is built on a 3-layers architecture:
 - Consult the List of orders 
 - Cosult the details of each order
 - Consult the list of products
-- Update the information about product
+- Update the information about product (stock quantity, price, picture, rating...)
 - Add new product in the database
 - Consult the list of user accounts
 - Add new user
+- Record an order and update the stock of ordered products 
 - Get the last sale products
 
 ## Screenshots
