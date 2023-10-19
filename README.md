@@ -26,6 +26,9 @@ My application is built on a 3-layers architecture:
 - User registration
 - User login
 - User Log out
+- Home page
+- About us page
+- Shop page with list of products
 - Display the products with rating relating their nutrient composition
 - Add product in the cart
 - Remove product in the cart
@@ -43,10 +46,17 @@ My application is built on a 3-layers architecture:
 - Update the information about product (stock quantity, price, picture, rating...)
 - Add new product in the database
 - Consult the list of user accounts
-- Add new user
+- Add new user in the database
 - Record an order and update the stock of ordered products 
 - Get the last sale products
+- CRUD operation on all entities
+
+
+## Demo 
+
+![Click here to watch the demo](https://youtu.be/TloPq_Msxn0?si=FdMO4bIlMQMxSzjA)
 
 ## Screenshots
 
 ![Home page i2food](https://github.com/rteguo/i2food/blob/main/static/img/home-page.png)
+
