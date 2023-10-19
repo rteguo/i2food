@@ -54,7 +54,7 @@ My application is built on a 3-layers architecture:
 
 ## Demo 
 
-![Click here to watch the demo](https://youtu.be/TloPq_Msxn0?si=FdMO4bIlMQMxSzjA)
+[Click here to watch the demo](https://youtu.be/TloPq_Msxn0?si=FdMO4bIlMQMxSzjA)
 
 ## Screenshots
 
